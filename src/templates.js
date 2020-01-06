@@ -185,6 +185,14 @@ angular.module('templates', [])
     '            <label>Protocol</label>\n' +
     '            <input name="inputProtocol" ng-disabled="selected.outOfScope" class="form-control" type="text" ng-model="selected.protocol" ng-change="edit()" placeholder="Protocol" />\n' +
     '        </div>\n' +
+    '        <div class="form-group">\n' +
+    '            <label>Direction</label>\n' +
+    '            <select name="inputDirection" ng-disabled="selected.outOfScope" class="form-control" ng-model="selected.direction" ng-change="edit()" placeholder="Direction">\n' +
+    '                <option selected>BiDirectional</option>\n' +
+    '                <option>UniDirectional</option>\n' +
+    '                <option>NotDirectional</option>\n' +
+    '            </select>\n' +
+    '        </div>\n' +
     '        <div class="checkbox">\n' +
     '            <label>\n' +
     '                <input name="checkboxIsEncryptedFlow" ng-disabled="selected.outOfScope" type="checkbox" ng-model="selected.isEncrypted" ng-change="edit()" /> Is encrypted\n' +

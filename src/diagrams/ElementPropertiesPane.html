@@ -54,6 +54,14 @@
             <label>Protocol</label>
             <input name="inputProtocol" ng-disabled="selected.outOfScope" class="form-control" type="text" ng-model="selected.protocol" ng-change="edit()" placeholder="Protocol" />
         </div>
+        <div class="form-group">
+            <label>Direction</label>
+            <select name="inputDirection" ng-disabled="selected.outOfScope" class="form-control" ng-model="selected.direction" ng-change="edit()" placeholder="Direction">
+                <option selected>BiDirectional</option>
+                <option>UniDirectional</option>
+                <option>NotDirectional</option>
+            </select>
+        </div>
         <div class="checkbox">
             <label>
                 <input name="checkboxIsEncryptedFlow" ng-disabled="selected.outOfScope" type="checkbox" ng-model="selected.isEncrypted" ng-change="edit()" /> Is encrypted

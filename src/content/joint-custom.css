@@ -27,6 +27,10 @@
     stroke: red;
 }
 
+.marker-source.hasOpenThreats {
+    fill: red
+}
+
 .marker-target.hasOpenThreats {
     fill: red
 }

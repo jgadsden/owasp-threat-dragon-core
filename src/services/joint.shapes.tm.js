@@ -130,6 +130,7 @@ joint.shapes.tm.Flow = joint.dia.Link.extend({
     defaults: joint.util.deepSupplement({
         type: 'tm.Flow',
         attrs: {
+            '.marker-source': { d: 'M 10 0 L 0 5 L 10 10 z' },
             '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' }
         },
         smooth: true
@@ -144,8 +145,8 @@ Object.defineProperty(joint.shapes.tm.Flow.prototype, 'name', {
 });
 
 joint.shapes.tm.utils.defineOutOfScope(joint.shapes.tm.Flow.prototype, 'connection');
-joint.shapes.tm.utils.defineHasOpenThreats(joint.shapes.tm.Flow.prototype, ['connection', 'marker-target']);
-joint.shapes.tm.utils.defineProperties(joint.shapes.tm.Flow.prototype, ['reasonOutOfScope', 'protocol', 'isEncrypted', 'isPublicNetwork', 'threats']);
+joint.shapes.tm.utils.defineHasOpenThreats(joint.shapes.tm.Flow.prototype, ['connection', 'marker-source', 'marker-target']);
+joint.shapes.tm.utils.defineProperties(joint.shapes.tm.Flow.prototype, ['reasonOutOfScope', 'protocol', 'direction', 'isEncrypted', 'isPublicNetwork', 'threats']);
 
 //trust boundary shape
 
