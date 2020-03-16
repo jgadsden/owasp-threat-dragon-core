@@ -28,10 +28,12 @@ function diagram($scope, $location, $routeParams, $timeout, dialogs, common, dat
     vm.newFlow = newFlow;
     vm.newActor = newActor;
     vm.newBoundary = newBoundary;
+    vm.cloneElement = cloneElement;
     vm.getThreatModelPath = getThreatModelPath;
     vm.select = select;
     vm.edit = edit;
     vm.generateThreats = generateThreats;
+    vm.duplicateElement = duplicateElement;
     vm.setGrid = setGrid;
     vm.showGrid = false;
     vm.selected = null;
@@ -208,6 +210,27 @@ function diagram($scope, $location, $routeParams, $timeout, dialogs, common, dat
         }
     }
 
+    function duplicateElement() {
+        if (vm.selected) {
+            var newElement = vm.cloneElement(vm.selected);
+
+            if (newElement.attributes.type == "tm.Flow") {    
+                newElement.attributes.source = {'x' : 30, 'y' : 20};
+                newElement.attributes.target = {'x' : 110, 'y' : 100};
+                newElement.attributes.labels[0].attrs.text.text = 'Copy of ' + newElement.attributes.labels[0].attrs.text.text;
+                delete newElement.attributes.vertices;
+            }
+            else {
+                var height = newElement.attributes.size.height + 20;
+                newElement.attributes.position.y += height;
+                newElement.attributes.attrs.text.text = 'Copy of ' + newElement.attributes.attrs.text.text;
+            }
+
+            var diagramData = { diagramJson: { cells: vm.graph.getCells() } };
+            vm.graph.initialise(diagramData.diagramJson);
+        }
+    }
+
     function onGenerateThreats(threats) {
         var threatTotal = threats.length;
         var threatList = threats;
@@ -323,6 +346,10 @@ function diagram($scope, $location, $routeParams, $timeout, dialogs, common, dat
     function newBoundary() {
 
         return vm.graph.addBoundary();
+    }
+
+    function cloneElement(element){
+        return watchThreats(vm.graph.duplicateElement(element));
     }
 
     function addDirtyEventHandlers() {

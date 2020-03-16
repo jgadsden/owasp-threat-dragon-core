@@ -221,6 +221,61 @@ describe('diagram controller', function () {
            expect(graph.addFlow.calls.argsFor(0)).toEqual([source, target]);
             
         });
+
+        it('should duplicate a flow element', function() {
+
+            var graph = {title: 'test graph'};
+            var label = [{ attrs : { text : { text : "flowName"} } } ];
+            var element = {id: 'elementId', attributes: {type : "tm.Flow", labels : label}};
+            graph.duplicateElement = function() { return {id: 'newElementId', attributes: {type : "tm.Flow", labels : label}}};
+            graph.getCells = function() {};
+            graph.initialise = function() {};
+            spyOn($scope.vm, 'cloneElement').and.callThrough();
+            $scope.vm.graph = graph;
+            $scope.vm.selected = element;
+            $scope.vm.duplicateElement();
+            expect($scope.vm.cloneElement).toHaveBeenCalled();
+        });
+
+        it('should duplicate an actor element', function() {
+
+            var graph = {title: 'test graph'};
+            var label = { text : { text : "actorName"} };
+            var element = {id: 'elementId', attributes: {type : "tm.Actor", position : { y : 10}, attrs : label}};
+            graph.duplicateElement = function() { return {id: 'newElementId', 
+                                    attributes: {type : "tm.Actor", size : {height : 30}, position : { y : 10}, attrs : label}}};
+            graph.getCells = function() {};
+            graph.initialise = function() {};
+            spyOn($scope.vm, 'cloneElement').and.callThrough();
+            $scope.vm.graph = graph;
+            $scope.vm.selected = element;
+            $scope.vm.duplicateElement();
+            expect($scope.vm.cloneElement).toHaveBeenCalled();
+        });
+
+        it('should not duplicate an element - no element selected', function() {
+
+            var graph = {title: 'test graph'};
+            graph.cloneElement = function() { return {"type": "tm.Flow", id: 'elementId'}};
+            spyOn(graph, 'cloneElement').and.callThrough();
+            $scope.vm.selected = null;
+            $scope.vm.duplicateElement();
+            expect(graph.cloneElement).not.toHaveBeenCalled();
+
+        });
+
+        it('should clone an element', function() {
+
+            var element = {id: 'elementId'};
+            var graph = {title: 'test graph'};
+            graph.duplicateElement = function() { return {id: 'elementId'}};
+            spyOn(graph, 'duplicateElement').and.callThrough();
+            $scope.vm.graph = graph;
+            $scope.vm.selected = element;
+            $scope.vm.cloneElement(element);
+            expect(graph.duplicateElement).toHaveBeenCalled();
+
+        });
         
         //helper for threat watcher unit tests
         function setOpenThreats(cell) {
